@@ -5,9 +5,9 @@ library(readr)
 library(ggplot2)
 
 #Read and gather the LJ List.
-LJ1<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",1)
-LJ2<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",2)
-LJ3<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",3)
+LJ1<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",1)
+LJ2<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",2)
+LJ3<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",3)
 LJG<-gather(LJ1,Language,Morpheme1,2:67)
 LJ2G<-gather(LJ2,Language,Morpheme2,2:67)
 LJ3G<-gather(LJ3,Language,Morpheme3,2:67)
@@ -24,7 +24,7 @@ LJGG<-gather(LJG,Number,Phoneme,3:ncol(LJG))
 LJGG<-subset(LJGG,Phoneme!="")
 
 #Classify phonemes that are [+feature] as vectors.
-IPA<-read.csv("D:/OneDrive/Excel/ipa_all.csv",header=TRUE,encoding="UTF-8")
+IPA<-read.csv("%File path%/ipa_all.csv",header=TRUE,encoding="UTF-8")
 IPA$ipa<-gsub("͡","",IPA$ipa)
 
 syl<-subset(IPA,syl=="+")
@@ -169,7 +169,3 @@ correlations<-subset(scores,FDR<0.1)
 
 #GGplot
 ggplot(correlations,aes(Feature,Meaning))+geom_tile(aes(fill=Zscore),colour="white")+scale_fill_gradient2(low="darkred",mid="white",high="darkblue")+theme(axis.text.x=element_text(angle=45,hjust=1))
-
-#Morpheme length
-LJl<-split(LJGG,LJGG[,'Language'])
-LJl[[1]][1]
