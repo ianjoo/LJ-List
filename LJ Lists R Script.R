@@ -169,3 +169,8 @@ correlations<-subset(scores,FDR<0.1)
 
 #GGplot
 ggplot(correlations,aes(Feature,Meaning))+geom_tile(aes(fill=Zscore),colour="white")+scale_fill_gradient2(low="darkred",mid="white",high="darkblue")+theme(axis.text.x=element_text(angle=45,hjust=1))
+
+#Morpheme length
+LJGno0<-subset(LJG,LJG[,3]!="")
+MorphemeMean<-mean(sapply(1:nrow(LJGno0),function(x){sum(LJGno0[x,3:ncol(LJGno0)]!="")}))
+MorphemeSD<-sd(sapply(1:nrow(LJGno0),function(x){sum(LJGno0[x,3:ncol(LJGno0)]!="")}))
