@@ -5,9 +5,9 @@ library(readr)
 library(ggplot2)
 
 #Read and gather the LJ List.
-LJ1<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",1)
-LJ2<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",2)
-LJ3<-read_excel("%File path%/LJ List (No Bukiyip).xlsx",3)
+LJ1<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",1)
+LJ2<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",2)
+LJ3<-read_excel("D:/OneDrive/Excel/LJ List.xlsx",3)
 LJG<-gather(LJ1,Language,Morpheme1,2:67)
 LJ2G<-gather(LJ2,Language,Morpheme2,2:67)
 LJ3G<-gather(LJ3,Language,Morpheme3,2:67)
@@ -24,7 +24,7 @@ LJGG<-gather(LJG,Number,Phoneme,3:ncol(LJG))
 LJGG<-subset(LJGG,Phoneme!="")
 
 #Classify phonemes that are [+feature] as vectors.
-IPA<-read.csv("%File path%/ipa_all.csv",header=TRUE,encoding="UTF-8")
+IPA<-read.csv("D:/OneDrive/Excel/ipa_all.csv",header=TRUE,encoding="UTF-8")
 IPA$ipa<-gsub("͡","",IPA$ipa)
 
 syl<-subset(IPA,syl=="+")
@@ -144,31 +144,31 @@ if (sum(unlist(lapply(1:66,function(x){any(LJlong[[x]])})),na.rm=TRUE) < 50) {LJ
 LJm<-split(LJGG,LJGG[,'Meaning'])
 
 #Counting the number of phonemes per each meaning
-N<-lapply(1:100,function(x){sum(!is.na(LJm[[x]]$Phoneme))})
+N<-sapply(1:100,function(x){sum(!is.na(LJm[[x]]$Phoneme))})
 
 #Counting the number of phonemes that are [+feature]
 n<-lapply(5:ncol(LJGG),function(y){lapply(1:100,function(x){sum(LJm[[x]][,y],na.rm=TRUE)})})
-names(n)<-colnames(LJGG[,5:ncol(LJGG)])
-for (x in 1:length(n)){names(n[[x]])<-LJ1$Meaning}
 n<-lapply(1:length(n),function(x){as.integer(n[[x]])})
+names(n)<-colnames(LJGG[,5:ncol(LJGG)])
 
 #Calculating the mean proportion of each [+feature] across 100 meanings
 M<-lapply(1:length(n),function(y){(lapply(1:100,function(x){mean(n[[y]][x]/N[[x]])}))})
 M<-sapply(1:length(n),function(x){mean(as.numeric(M[[x]]))})
 
-#Z-score
-zscores<-data.frame(LJ1$Meaning)
-for (x in 1:length(n)){zscores[x+1] <- sapply(1:100,function(y){(n[[x]][y]/N[[y]]-M[x])/sqrt((M[x]*(1-M[x]))/N[[y]])})}
-colnames(zscores)<-c("Meaning",colnames(LJGG)[5:ncol(LJGG)])
-scores<-gather(zscores,Feature,Zscore,2:ncol(zscores))
+#p-values
+pvalues<-data.frame(LJ1$Meaning)
+pvalues[2:(length(n)+1)]<-lapply(1:length(n),function(x){lapply(1:100,function(y){as.numeric(binom.test(n[[x]][y],N[y],p=M[x])[3])})})
+colnames(pvalues)<-c("Meaning",colnames(LJGG)[5:ncol(LJGG)])
+values<-gather(pvalues,Feature,pvalue,2:ncol(pvalues))
+values$pvalue<-as.numeric(values$pvalue)
+values$Association<-unlist(lapply(1:length(n),function(x){lapply(1:100,function(y){n[[x]][y]/N[y]>M[x]})}))
 
-#P-value
-scores$pvalue<-2*pnorm(-abs(scores$Zscore))
-scores$FDR<-p.adjust(scores$pvalue,method="BH")
-correlations<-subset(scores,FDR<0.1)
+#Multiple Correction
+values$FDR<-p.adjust(values$pvalue,method="BH")
+correlations<-subset(values,FDR<0.1)
 
 #GGplot
-ggplot(correlations,aes(Feature,Meaning))+geom_tile(aes(fill=Zscore),colour="white")+scale_fill_gradient2(low="darkred",mid="white",high="darkblue")+theme(axis.text.x=element_text(angle=45,hjust=1))
+ggplot(correlations,aes(Feature,Meaning))+geom_tile(aes(fill=Association),colour="black")+theme(axis.text.x=element_text(angle=45,hjust=1))+scale_fill_manual(values=c("salmon","royalblue1"),labels=c("Negative","Positive"))
 
 #Morpheme length
 LJGno0<-subset(LJG,LJG[,3]!="")
