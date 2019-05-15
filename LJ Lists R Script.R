@@ -29,116 +29,116 @@ IPA$ipa<-gsub("͡","",IPA$ipa)
 
 syl<-subset(IPA,syl=="+")
 syl<-syl$ipa
-LJGG$syllabic <- c(LJGG$Phoneme %in% syl)
+LJGG$'+syllabic' <- c(LJGG$Phoneme %in% syl)
 son<-subset(IPA,son=="+")
 son<-son$ipa
-LJGG$sonorant <- c(LJGG$Phoneme %in% son)
+LJGG$'+sonorant' <- c(LJGG$Phoneme %in% son)
 cons<-subset(IPA,cons=="+")
 cons<-cons$ipa
-LJGG$consonantal <- c(LJGG$Phoneme %in% cons)
+LJGG$'+consonantal' <- c(LJGG$Phoneme %in% cons)
 cont<-subset(IPA,cont=="+")
 cont<-cont$ipa
-LJGG$continuant <- c(LJGG$Phoneme %in% cont)
+LJGG$'+continuant' <- c(LJGG$Phoneme %in% cont)
 delrel<-subset(IPA,delrel=="+")
 delrel<-delrel$ipa
-LJGG$'delayed release' <- c(LJGG$Phoneme %in% delrel)
+LJGG$'+delayed release' <- c(LJGG$Phoneme %in% delrel)
 lat<-subset(IPA,lat=="+")
 lat<-lat$ipa
-LJGG$lateral <- c(LJGG$Phoneme %in% lat)
+LJGG$'+lateral' <- c(LJGG$Phoneme %in% lat)
 nas<-subset(IPA,nas=="+")
 nas<-nas$ipa
-LJGG$nasal <- c(LJGG$Phoneme %in% nas)
+LJGG$'+nasal' <- c(LJGG$Phoneme %in% nas)
 strid<-subset(IPA,strid=="+")
 strid<-strid$ipa
-LJGG$strident <- c(LJGG$Phoneme %in% strid)
+LJGG$'+strident' <- c(LJGG$Phoneme %in% strid)
 voi<-subset(IPA,voi=="+")
 voi<-voi$ipa
-LJGG$voiced <- c(LJGG$Phoneme %in% voi)
+LJGG$'+voiced' <- c(LJGG$Phoneme %in% voi)
 sg<-subset(IPA,sg=="+")
 sg<-sg$ipa
-LJGG$spread <- c(LJGG$Phoneme %in% sg)
+LJGG$'+spread' <- c(LJGG$Phoneme %in% sg)
 cg<-subset(IPA,cg=="+")
 cg<-cg$ipa
-LJGG$constricted <- c(LJGG$Phoneme %in% cg)
+LJGG$'+constricted' <- c(LJGG$Phoneme %in% cg)
 ant<-subset(IPA,ant=="+")
 ant<-ant$ipa
-LJGG$anterior <- c(LJGG$Phoneme %in% ant)
+LJGG$'+anterior' <- c(LJGG$Phoneme %in% ant)
 cor<-subset(IPA,cor=="+")
 cor<-cor$ipa
-LJGG$coronal <- c(LJGG$Phoneme %in% cor)
+LJGG$'+coronal' <- c(LJGG$Phoneme %in% cor)
 distr<-subset(IPA,IPA$dist=="+")
 distr<-distr$ipa
-LJGG$distributed <- c(LJGG$Phoneme %in% distr)
+LJGG$'+distributed' <- c(LJGG$Phoneme %in% distr)
 lab<-subset(IPA,lab=="+")
 lab<-lab$ipa
-LJGG$labial <- c(LJGG$Phoneme %in% lab)
+LJGG$'+labial' <- c(LJGG$Phoneme %in% lab)
 hi<-subset(IPA,hi=="+")
 hi<-hi$ipa
-LJGG$high <- c(LJGG$Phoneme %in% hi)
+LJGG$'+high' <- c(LJGG$Phoneme %in% hi)
 lo<-subset(IPA,lo=="+")
 lo<-lo$ipa
-LJGG$low <- c(LJGG$Phoneme %in% lo)
+LJGG$'+low' <- c(LJGG$Phoneme %in% lo)
 back<-subset(IPA,back=="+")
 back<-back$ipa
-LJGG$back <- c(LJGG$Phoneme %in% back)
+LJGG$'+back' <- c(LJGG$Phoneme %in% back)
 round<-subset(IPA,round=="+")
 round<-round$ipa
-LJGG$round <- c(LJGG$Phoneme %in% round)
+LJGG$'+round' <- c(LJGG$Phoneme %in% round)
 velaric<-subset(IPA,velaric=="+")
 velaric<-velaric$ipa
-LJGG$velaric <- c(LJGG$Phoneme %in% velaric)
+LJGG$'+velaric' <- c(LJGG$Phoneme %in% velaric)
 tense<-subset(IPA,tense=="+")
 tense<-tense$ipa
-LJGG$tense <- c(LJGG$Phoneme %in% tense)
+LJGG$'+tense' <- c(LJGG$Phoneme %in% tense)
 long<-subset(IPA,long=="+")
 long<-long$ipa
-LJGG$long <- c(LJGG$Phoneme %in% long)
+LJGG$'+long' <- c(LJGG$Phoneme %in% long)
 
 #Delete features that are present in less than 50 languages.
-LJsyl<-split(LJGG$syllabic,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJsyl[[x]])})),na.rm=TRUE) < 50) {LJGG$syllabic<-NULL}
-LJson<-split(LJGG$sonorant,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJson[[x]])})),na.rm=TRUE) < 50) {LJGG$sonorant<-NULL}
-LJcons<-split(LJGG$consonantal,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJcons[[x]])})),na.rm=TRUE) < 50) {LJGG$consonantal<-NULL}
-LJcont<-split(LJGG$continuant,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJcont[[x]])})),na.rm=TRUE) < 50) {LJGG$continuant<-NULL}
-LJdelrel<-split(LJGG$'delayed release',LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJdelrel[[x]])})),na.rm=TRUE) < 50) {LJGG$'delayed release'<-NULL}
-LJlat<-split(LJGG$lateral,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJlat[[x]])})),na.rm=TRUE) < 50) {LJGG$lateral<-NULL}
-LJnas<-split(LJGG$nasal,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJnas[[x]])})),na.rm=TRUE) < 50) {LJGG$nasal<-NULL}
-LJstrid<-split(LJGG$strident,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJstrid[[x]])})),na.rm=TRUE) < 50) {LJGG$strident<-NULL}
-LJvoi<-split(LJGG$voiced,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJvoi[[x]])})),na.rm=TRUE) < 50) {LJGG$voiced<-NULL}
-LJsg<-split(LJGG$spread,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJsg[[x]])})),na.rm=TRUE) < 50) {LJGG$spread<-NULL}
-LJcg<-split(LJGG$constricted,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJcg[[x]])})),na.rm=TRUE) < 50) {LJGG$constricted<-NULL}
-LJant<-split(LJGG$anterior,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJant[[x]])})),na.rm=TRUE) < 50) {LJGG$anterior<-NULL}
-LJcor<-split(LJGG$coronal,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJcor[[x]])})),na.rm=TRUE) < 50) {LJGG$coronal<-NULL}
-LJdistr<-split(LJGG$distributed,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJdistr[[x]])})),na.rm=TRUE) < 50) {LJGG$distributed<-NULL}
-LJlab<-split(LJGG$labial,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJlab[[x]])})),na.rm=TRUE) < 50) {LJGG$labial<-NULL}
-LJhi<-split(LJGG$high,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJhi[[x]])})),na.rm=TRUE) < 50) {LJGG$high<-NULL}
-LJlo<-split(LJGG$low,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJlo[[x]])})),na.rm=TRUE) < 50) {LJGG$low<-NULL}
-LJback<-split(LJGG$back,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJback[[x]])})),na.rm=TRUE) < 50) {LJGG$back<-NULL}
-LJround<-split(LJGG$round,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJround[[x]])})),na.rm=TRUE) < 50) {LJGG$round<-NULL}
-LJvelaric<-split(LJGG$velaric,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJvelaric[[x]])})),na.rm=TRUE) < 50) {LJGG$velaric<-NULL}
-LJtense<-split(LJGG$tense,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJtense[[x]])})),na.rm=TRUE) < 50) {LJGG$tense<-NULL}
-LJlong<-split(LJGG$long,LJGG$Language)
-if (sum(unlist(lapply(1:66,function(x){any(LJlong[[x]])})),na.rm=TRUE) < 50) {LJGG$long<-NULL}
+LJsyl<-split(LJGG$'+syllabic',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJsyl[[x]])})),na.rm=TRUE) < 50) {LJGG$'+syllabic'<-NULL}
+LJson<-split(LJGG$'+sonorant',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJson[[x]])})),na.rm=TRUE) < 50) {LJGG$'+sonorant'<-NULL}
+LJcons<-split(LJGG$'+consonantal',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJcons[[x]])})),na.rm=TRUE) < 50) {LJGG$'+consonantal'<-NULL}
+LJcont<-split(LJGG$'+continuant',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJcont[[x]])})),na.rm=TRUE) < 50) {LJGG$'+continuant'<-NULL}
+LJdelrel<-split(LJGG$'+delayed release',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJdelrel[[x]])})),na.rm=TRUE) < 50) {LJGG$'+delayed release'<-NULL}
+LJlat<-split(LJGG$'+lateral',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJlat[[x]])})),na.rm=TRUE) < 50) {LJGG$'+lateral'<-NULL}
+LJnas<-split(LJGG$'+nasal',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJnas[[x]])})),na.rm=TRUE) < 50) {LJGG$'+nasal'<-NULL}
+LJstrid<-split(LJGG$'+strident',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJstrid[[x]])})),na.rm=TRUE) < 50) {LJGG$'+strident'<-NULL}
+LJvoi<-split(LJGG$'+voiced',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJvoi[[x]])})),na.rm=TRUE) < 50) {LJGG$'+voiced'<-NULL}
+LJsg<-split(LJGG$'+spread',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJsg[[x]])})),na.rm=TRUE) < 50) {LJGG$'+spread'<-NULL}
+LJcg<-split(LJGG$'+constricted',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJcg[[x]])})),na.rm=TRUE) < 50) {LJGG$'+constricted'<-NULL}
+LJant<-split(LJGG$'+anterior',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJant[[x]])})),na.rm=TRUE) < 50) {LJGG$'+anterior'<-NULL}
+LJcor<-split(LJGG$'+coronal',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJcor[[x]])})),na.rm=TRUE) < 50) {LJGG$'+coronal'<-NULL}
+LJdistr<-split(LJGG$'+distributed',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJdistr[[x]])})),na.rm=TRUE) < 50) {LJGG$'+distributed'<-NULL}
+LJlab<-split(LJGG$'+labial',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJlab[[x]])})),na.rm=TRUE) < 50) {LJGG$'+labial'<-NULL}
+LJhi<-split(LJGG$'+high',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJhi[[x]])})),na.rm=TRUE) < 50) {LJGG$'+high'<-NULL}
+LJlo<-split(LJGG$'+low',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJlo[[x]])})),na.rm=TRUE) < 50) {LJGG$'+low'<-NULL}
+LJback<-split(LJGG$'+back',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJback[[x]])})),na.rm=TRUE) < 50) {LJGG$'+back'<-NULL}
+LJround<-split(LJGG$'+round',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJround[[x]])})),na.rm=TRUE) < 50) {LJGG$'+round'<-NULL}
+LJvelaric<-split(LJGG$'+velaric',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJvelaric[[x]])})),na.rm=TRUE) < 50) {LJGG$'+velaric'<-NULL}
+LJtense<-split(LJGG$'+tense',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJtense[[x]])})),na.rm=TRUE) < 50) {LJGG$'+tense'<-NULL}
+LJlong<-split(LJGG$'+long',LJGG$Language)
+if (sum(unlist(lapply(1:66,function(x){any(LJlong[[x]])})),na.rm=TRUE) < 50) {LJGG$'+long'<-NULL}
 
 #Splitting the LJ Lists by the 100 meanings
 LJm<-split(LJGG,LJGG[,'Meaning'])
